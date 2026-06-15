@@ -1,4 +1,7 @@
 import useSession from '@/shared/store/useSession';
+import { colors } from '@/shared/styles/colors';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
@@ -14,11 +17,19 @@ export default function MainTabs() {
 
   // if (isAuthenticated && hasCompletedOnboarding) {
     return (
-      <Tabs screenOptions={{headerShown: false}}>
-        <Tabs.Screen name="index" options={{ title: 'Home' }} />
-        <Tabs.Screen name="gardens" options={{ title: 'Gardens' }} />
-        <Tabs.Screen name="plants" options={{title: 'Plants'}} />
-        <Tabs.Screen name="account" options={{ title: 'Account' }} />
+      <Tabs screenOptions={{
+        headerShown: false, 
+        tabBarStyle: {
+          backgroundColor: colors.white,
+          borderTopWidth: 1,
+          borderTopColor: colors.greenMid
+        },
+        tabBarActiveTintColor: colors.dark,
+        tabBarInactiveTintColor: colors.dark1}}>
+        <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" size={28} color={color} />}} />
+        <Tabs.Screen name="gardens" options={{ title: 'Gardens', tabBarIcon: ({ color }) => <AntDesign name="layout" size={24} color={color} />  }} />
+        <Tabs.Screen name="plants" options={{title: 'Plants', tabBarIcon:({color}) => <MaterialCommunityIcons name="flower" size={26} color={color} /> }} />
+        <Tabs.Screen name="account" options={{ title: 'Account', tabBarIcon: ({color}) => <MaterialCommunityIcons name="account" size={30} color={color} />  }} />
       </Tabs>
     );
   // }

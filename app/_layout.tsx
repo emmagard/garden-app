@@ -1,4 +1,5 @@
 import useSession from '@/shared/store/useSession';
+import { colors } from '@/shared/styles/colors';
 import { Stack } from 'expo-router';
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -21,7 +22,7 @@ export default function RootLayout() {
   const shouldCompleteOnboarding = isAuthenticated && !hasCompletedOnboarding;
 
   return (
-    <Stack screenOptions={{ headerShown: false, contentStyle: {backgroundColor: '#ffffff'} }}>
+    <Stack screenOptions={{ headerShown: false, contentStyle: {backgroundColor: colors.light} }}>
       <Stack.Protected guard={!isAuthenticated}>
         <Stack.Screen name="(auth)" />
       </Stack.Protected>

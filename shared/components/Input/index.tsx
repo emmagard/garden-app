@@ -1,3 +1,4 @@
+import { colors } from '@/shared/styles/colors';
 import { Text, TextInput, TextInputProps, View } from "react-native";
 
 interface InputProps extends TextInputProps {
@@ -8,13 +9,10 @@ interface InputProps extends TextInputProps {
 export default function Input({ label, labelPlacement = 'above',  ...rest }: InputProps) {
   const defaultStyle = {
     border: 'solid',
-    borderWidth: 1,
-    borderColor: '#d0d2d0',
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: colors.white,
+    borderWidth: 0,
+    padding: 12,
     borderRadius: 8,
-    flexGrow: 2
   };
   const style = rest.style ? [defaultStyle, rest.style] : defaultStyle;
   
@@ -24,7 +22,11 @@ export default function Input({ label, labelPlacement = 'above',  ...rest }: Inp
   } as const;
 
   const labelStyle = {
-    marginRight: 10
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: colors.dark,
+    marginRight: 10,
+    marginBottom: 10
   };
   
   return (

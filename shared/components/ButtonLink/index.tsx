@@ -1,8 +1,10 @@
+import { colors } from '@/shared/styles/colors';
 import { Link, LinkProps } from "expo-router";
 import { Pressable, PressableProps } from "react-native";
 
 interface ButtonLinkProps extends PressableProps {
   size?: 'small'|'medium'|'large';
+  round?: boolean;
   href: LinkProps['href'];
 }
 
@@ -21,7 +23,7 @@ const sizeMap = {
   }
 };
 
-export default function ButtonLink({ size = 'medium', href, children, ...rest }: ButtonLinkProps) {
+export default function ButtonLink({ size = 'medium', round = false, href, children, ...rest }: ButtonLinkProps) {
    if (!href) {
     console.warn("ButtonLink requires an href prop");
     return null;
@@ -35,11 +37,11 @@ export default function ButtonLink({ size = 'medium', href, children, ...rest }:
       disabled={isDisabled}
       asChild
       style={{
-        alignSelf: 'flex-start', 
-        backgroundColor: '#BDD4E5',
+        alignSelf: 'flex-start',
+        backgroundColor: colors.greenBright,
         paddingVertical: sizeMap[size].pv,
         paddingHorizontal: sizeMap[size].ph,
-        borderRadius: 8,
+        borderRadius: round ? 100 : 8,
         opacity: isDisabled ? 0.5 : 1,
       }}>
       <Pressable {...rest} disabled={isDisabled}>

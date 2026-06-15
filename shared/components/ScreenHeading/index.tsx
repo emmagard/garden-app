@@ -1,3 +1,4 @@
+import { colors } from '@/shared/styles/colors';
 import { Text, View } from 'react-native';
 
 type ScreenHeadingProps = {
@@ -16,7 +17,7 @@ const fontSizeMap: Record<number, number> = {
 export default function ScreenHeading({ title, level = 1, paddingBottom = 16}: ScreenHeadingProps) {
   return (
     <View style={{ paddingBottom: paddingBottom }}>
-      <Text style={{ fontSize: fontSizeMap[level], fontWeight: 'bold' }}>{title}</Text>
+      <Text style={{ fontSize: fontSizeMap[level], fontWeight: 'bold', color: colors.dark }}>{title}</Text>
     </View>
   );
 }

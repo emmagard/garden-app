@@ -1,11 +1,16 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
+import ButtonLink from '@/shared/components/ButtonLink';
 import Input from '@/shared/components/Input';
+import { InputSelect } from '@/shared/components/InputSelect';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { gardensData } from '@/shared/constants/gardens';
+import { lightOptions } from '@/shared/constants/lightOptions';
+import { soilOptions } from '@/shared/constants/soilOptions';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 export default function GardensEditScreen() {
   const {id} = useLocalSearchParams();
@@ -20,41 +25,58 @@ export default function GardensEditScreen() {
   const [gardenWidth, setGardenWidth] = useState(garden.width);
 
   return (
-    <ScreenContainer>
-      <ScreenHeading title={ `Editting the ${gardenName}`} />
-      <View style={{marginBottom: 20, flexDirection: 'row', alignContent: 'stretch', gap: 20, marginRight: 20 }}>
-        <View style={{width: '50%'}}>
-          <Input
-            label="Light:"
-            labelPlacement={'beside'}
-            value={gardenLight} 
-            onChangeText={(newVal) => {setGardenLight(newVal)}} />
-          <Input
-            label="Soil:"
-            labelPlacement={'beside'}
-            value={gardenSoil}
-            onChangeText={(newVal) => {setGardenSoil(newVal)}} />
 
+    <ScrollView style={{flexGrow: 1}}>
+      <ScreenContainer>
+        <ScreenHeading title={`Editting the ${garden.name}`} />
+        <View style={{
+          marginBottom: 30,
+          flexDirection: 'column',
+          gap: 20,
+        }}>
+            <Input
+              label="Garden Name"
+              value={gardenName} 
+              onChangeText={(newVal) => {setGardenName(newVal)}} />
+            <InputSelect
+              options={lightOptions}
+              label="Light"
+              value={gardenLight} 
+              onChange={(newVal) => {setGardenLight(newVal)}} />
+            <InputSelect
+              options={soilOptions}
+              label="Soil"
+              value={gardenSoil}
+              onChange={(newVal) => {setGardenSoil(newVal)}} />
+            <Input
+              label="Length"
+              labelPlacement={'above'}
+              value={gardenLength}
+              onChangeText={(newVal) => {setGardenLength(newVal)}} />
+            <Input
+              label="Width"
+              labelPlacement={'above'}
+              value={gardenWidth}
+              onChangeText={(newVal) => {setGardenWidth(newVal)}} />
         </View>
-        <View style={{width: '50%'}}>
-          <Input
-            label="Length:"
-            labelPlacement={'beside'}
-            value={gardenLength}
-            onChangeText={(newVal) => {setGardenLength(newVal)}} />
-          <Input
-            label="Width:"
-            labelPlacement={'beside'}
-            value={gardenWidth}
-            onChangeText={(newVal) => {setGardenWidth(newVal)}} />
+        <View>
+          <View style={{flexDirection: 'row', gap: 20, alignContent: 'center', alignItems: 'center'}}>
+            <ScreenHeading title='Plants' level={2} />
+            <ButtonLink href="/plants/new" round size="small">
+              <MaterialIcons name="add" size={24} color="black" />
+            </ButtonLink>
+          </View>
+          <View style={{marginBottom: 30}}>
+            {garden.plants.map((item) => (
+              <PlantListItem
+                plantName={item.name}
+                plantId={item.id}
+                key={item.id}/>
+            ))}
+          </View>
+         
         </View>
-      </View>
-      <ScreenHeading title='Plants' level={2} />
-      <FlatList
-        data={garden.plants}
-        renderItem={ ({item}) => <PlantListItem plantName={item.name} plantId={item.id} />}
-        keyExtractor={item => item.id}
-      />   
-    </ScreenContainer>
+      </ScreenContainer>
+    </ScrollView>
   );
 }

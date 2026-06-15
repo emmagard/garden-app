@@ -1,12 +1,14 @@
 import ButtonLink from '@/shared/components/ButtonLink';
 import ScreenHeading from '@/shared/components/ScreenHeading';
+import { colors } from '@/shared/styles/colors';
 import { Text, View } from 'react-native';
 
 function GardenListItem({ gardenName, gardenId }: { gardenName: string; gardenId: string }) {
   return (
     <View style={{
       marginTop: 10,
-      backgroundColor: '#fff7e5',
+      backgroundColor: colors.white,
+      borderRadius: 5,
       paddingVertical: 16,
       paddingHorizontal: 16,
       display: 'flex',
@@ -20,7 +22,7 @@ function GardenListItem({ gardenName, gardenId }: { gardenName: string; gardenId
         pathname: '/gardens/edit',
         params: {id: gardenId }
       }}>
-        <Text>Edit</Text>
+        <Text style={{ color: colors.dark,}}>Edit</Text>
       </ButtonLink>
     </View>
   );
