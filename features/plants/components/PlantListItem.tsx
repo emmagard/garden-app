@@ -6,7 +6,6 @@ import { Text, View } from 'react-native';
 function PlantListItem({ plantName, plantId }: { plantName: string; plantId: string }) {
   return (
     <View style={{
-      marginTop: 10,
       backgroundColor: colors.white,
       borderRadius: 8,
       paddingVertical: 16,

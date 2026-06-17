@@ -1,6 +1,5 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
 import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
-import ButtonLinkRound from '@/shared/components/Buttons/ButtonLinkRound';
 import Input from '@/shared/components/Input';
 import { InputSelect } from '@/shared/components/InputSelect';
 import ScreenContainer from '@/shared/components/ScreenContainer';
@@ -8,7 +7,6 @@ import ScreenHeading from '@/shared/components/ScreenHeading';
 import { gardensData } from '@/shared/constants/gardens';
 import { lightOptions } from '@/shared/constants/lightOptions';
 import { soilOptions } from '@/shared/constants/soilOptions';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
@@ -29,7 +27,7 @@ export default function GardensEditScreen() {
 
     <ScrollView style={{flexGrow: 1}}>
       <ScreenContainer>
-        <ScreenHeading title={`Editting the ${garden.name}`} />
+        <ScreenHeading title={`Editting the ${garden.name}`} paddingBottom={30}/>
         <View style={{
           marginBottom: 30,
           flexDirection: 'column',
@@ -63,15 +61,12 @@ export default function GardensEditScreen() {
         <View style={{
           flexDirection: 'row',
           gap: 20,
-          marginBottom: 8,
+          marginBottom: 0,
           alignContent: 'center',
           alignItems: 'center' }}>
-          <ScreenHeading title='Plants' level={2} paddingBottom={0} />
-          <ButtonLinkRound href='/plants/new'>
-            <MaterialIcons name="add" size={24} color="black" />
-          </ButtonLinkRound>
+          <ScreenHeading title='Plants' level={2} paddingBottom={10} />
         </View>
-        <View style={{marginBottom: 30}}>
+        <View style={{gap: 12, marginBottom: 30}}>
           {garden.plants.map((item) => (
             <PlantListItem
               plantName={item.name}

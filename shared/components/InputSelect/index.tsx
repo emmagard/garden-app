@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold', 
     color: colors.dark,
-    marginBottom: 10 
+    marginBottom: 8 
   },
   trigger:          {
     flexDirection: 'row',
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 0,
     backgroundColor: '#fff',
-    borderRadius: 8
+    borderRadius: 8,
   },
   triggerOpen: {
     borderColor: '#6366F1',
