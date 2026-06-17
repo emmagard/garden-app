@@ -3,8 +3,8 @@ export const gardensData = [{
   name: 'Front Garden',
   width: '10 ft',
   length: '5 ft',
-  light: 'part sun',
-  soil: 'dry',
+  light: 'mostly-sun',
+  soil: 'clay',
   plants: [
     {
       id: 'p1',
@@ -21,8 +21,8 @@ export const gardensData = [{
   name: 'Patio',
   width: '12 ft',
   length: '12 ft',
-  light: 'full sun',
-  soil: 'medium',
+  light: 'full-sun',
+  soil: 'loamy',
   plants: [
     {
       id: 'p1',

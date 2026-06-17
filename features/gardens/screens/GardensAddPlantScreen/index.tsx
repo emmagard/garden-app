@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Text } from 'react-native';
 
 
-export default function GardensNewScreen() {
+export default function GardensAddPlantScreen() {
   const [name, setName] = useState('');
   
   return (

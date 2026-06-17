@@ -1,4 +1,4 @@
-import ButtonLink from '@/shared/components/ButtonLink';
+import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import LinkList from '@/shared/components/LinkList';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';

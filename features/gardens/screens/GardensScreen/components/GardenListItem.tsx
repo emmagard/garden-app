@@ -1,4 +1,4 @@
-import ButtonLink from '@/shared/components/ButtonLink';
+import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { colors } from '@/shared/styles/colors';
 import { Text, View } from 'react-native';

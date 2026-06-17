@@ -1,5 +1,6 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
-import ButtonLink from '@/shared/components/ButtonLink';
+import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
+import ButtonLinkRound from '@/shared/components/Buttons/ButtonLinkRound';
 import Input from '@/shared/components/Input';
 import { InputSelect } from '@/shared/components/InputSelect';
 import ScreenContainer from '@/shared/components/ScreenContainer';
@@ -8,9 +9,9 @@ import { gardensData } from '@/shared/constants/gardens';
 import { lightOptions } from '@/shared/constants/lightOptions';
 import { soilOptions } from '@/shared/constants/soilOptions';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 export default function GardensEditScreen() {
   const {id} = useLocalSearchParams();
@@ -59,23 +60,30 @@ export default function GardensEditScreen() {
               value={gardenWidth}
               onChangeText={(newVal) => {setGardenWidth(newVal)}} />
         </View>
-        <View>
-          <View style={{flexDirection: 'row', gap: 20, alignContent: 'center', alignItems: 'center'}}>
-            <ScreenHeading title='Plants' level={2} />
-            <ButtonLink href="/plants/new" round size="small">
-              <MaterialIcons name="add" size={24} color="black" />
-            </ButtonLink>
-          </View>
-          <View style={{marginBottom: 30}}>
-            {garden.plants.map((item) => (
-              <PlantListItem
-                plantName={item.name}
-                plantId={item.id}
-                key={item.id}/>
-            ))}
-          </View>
-         
+        <View style={{
+          flexDirection: 'row',
+          gap: 20,
+          marginBottom: 8,
+          alignContent: 'center',
+          alignItems: 'center' }}>
+          <ScreenHeading title='Plants' level={2} paddingBottom={0} />
+          <ButtonLinkRound href='/plants/new'>
+            <MaterialIcons name="add" size={24} color="black" />
+          </ButtonLinkRound>
         </View>
+        <View style={{marginBottom: 30}}>
+          {garden.plants.map((item) => (
+            <PlantListItem
+              plantName={item.name}
+              plantId={item.id}
+              key={item.id}/>
+          ))}
+        </View>
+        <Link href='/gardens/add-plant' asChild>
+          <ButtonBlock>
+            <Text>Add a Plant to Your Garden</Text>
+          </ButtonBlock>
+        </Link>
       </ScreenContainer>
     </ScrollView>
   );

@@ -1,4 +1,4 @@
-import ButtonLink from '@/shared/components/ButtonLink';
+import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { gardensData } from '@/shared/constants/gardens';

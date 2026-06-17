@@ -1,4 +1,4 @@
-import ButtonLink from '@/shared/components/ButtonLink';
+import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import useSession from '@/shared/store/useSession';
 import { useState } from 'react';
 import { Switch, Text, View } from 'react-native';
