@@ -7,7 +7,7 @@ export default function PlantsScreen() {
   return (
     <ScreenContainer>
       <ScreenHeading title="Your Plants" />
-      <Text>You don't have any plants.</Text>
+      <Text>You don&apos;t have any plants.</Text>
       <ButtonLink href="/plants/new">
         <Text>Add a new plant to get started.</Text>
       </ButtonLink>

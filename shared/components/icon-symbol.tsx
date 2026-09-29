@@ -20,6 +20,7 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'person': 'person',
   'network': 'device-hub',
+  'arrow.backward': 'arrow-back',
 } as IconMapping;
 
 /**

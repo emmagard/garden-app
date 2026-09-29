@@ -1,5 +1,3 @@
-import type { Plant } from '../plants/types';
-
 export type Garden = {
   id: string;
   name: string;
@@ -7,5 +5,5 @@ export type Garden = {
   length: number,
   light: string,
   soil: string,
-  plants: [Plant]
+  plantIds: string[]
 }

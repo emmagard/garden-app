@@ -20,7 +20,7 @@ export default function GardensScreen() {
 
       { gardens.length === 0 ?
         <>
-          <Text>You don't have any gardens.</Text>
+          <Text>You don&apos;t have any gardens.</Text>
           <ButtonLink href="/gardens/new">
             <Text>Add a new garden to get started.</Text>
           </ButtonLink>

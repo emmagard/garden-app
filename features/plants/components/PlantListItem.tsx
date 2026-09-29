@@ -1,32 +1,38 @@
-import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { colors } from '@/shared/styles/colors';
-import { Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Pressable } from 'react-native';
 
 function PlantListItem({ plantName, plantId }: { plantName: string; plantId: string }) {
+  const router = useRouter();
+
+  const openPlant = () => {
+    router.push({
+      pathname: '/plants/single',
+      params: { id: plantId }
+    });
+  };
+
   return (
-    <View style={{
-      backgroundColor: colors.white,
-      borderRadius: 8,
-      paddingVertical: 16,
-      paddingHorizontal: 16,
-      display: 'flex',
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      alignItems: 'center',
-      alignContent: 'center'
-    }}>
+    <Pressable
+      onPress={openPlant}
+      accessibilityRole="button"
+      accessibilityLabel={`View ${plantName}`}
+      style={({ pressed }) => ({
+        backgroundColor: colors.white,
+        borderRadius: 8,
+        paddingVertical: 16,
+        paddingHorizontal: 16,
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignContent: 'center',
+        opacity: pressed ? 0.7 : 1
+      })}
+    >
       <ScreenHeading title={plantName} level={3} paddingBottom={0}/>
-      <ButtonLink
-        size='small'
-        href={{
-          pathname: '/plants/edit',
-          params: {id: plantId }
-        }
-      }>
-        <Text style={{fontSize: 10}}>Edit</Text>
-      </ButtonLink>
-    </View>
+    </Pressable>
   );
 }
 

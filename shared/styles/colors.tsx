@@ -5,8 +5,9 @@ export const colors = {
   greenMid: '#9da948',
   greenLight: '#eff0b0',
   greenBright: '#d8da56',
+  blue: '#42ccd1',
   brown: '#766153',
-  red: '#f64c2a',
+  red: '#f6672a',
   white: '#ffffff',
   black: '#000000',
   black35: 'rgba(0, 0, 0, 0.35)'

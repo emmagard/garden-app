@@ -6,22 +6,52 @@ import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { gardensData } from '@/shared/constants/gardens';
 import { lightOptions } from '@/shared/constants/lightOptions';
+import { plantsData } from '@/shared/constants/plants';
 import { soilOptions } from '@/shared/constants/soilOptions';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { colors } from '@/shared/styles/colors';
+import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import AddPlantSheet from './components/AddPlantSheet';
 
 export default function GardensEditScreen() {
   const {id} = useLocalSearchParams();
   const garden = gardensData.find(garden => garden.id === id);
 
-  if (!garden) return;
+  // Hooks must run before the early return below, so fall back to empty values.
+  const [gardenName, setGardenName] = useState(garden?.name ?? '');
+  const [gardenLight, setGardenLight] = useState(garden?.light ?? '');
+  const [gardenSoil, setGardenSoil] = useState(garden?.soil ?? '');
+  const [gardenLength, setGardenLength] = useState(garden?.length ?? '');
+  const [gardenWidth, setGardenWidth] = useState(garden?.width ?? '');
+  const [gardenPlantIds, setGardenPlantIds] = useState(garden?.plantIds ?? []);
+  const [isAddPlantOpen, setIsAddPlantOpen] = useState(false);
 
-  const [gardenName, setGardenName] = useState(garden.name);
-  const [gardenLight, setGardenLight] = useState(garden.light);
-  const [gardenSoil, setGardenSoil] = useState(garden.soil);
-  const [gardenLength, setGardenLength] = useState(garden.length);
-  const [gardenWidth, setGardenWidth] = useState(garden.width);
+  const handleSaveChanges = () => {
+    if (garden) {
+      // Handle saving changes to the garden
+      console.log({
+        id: garden.id,
+        name: gardenName,
+        light: gardenLight,
+        soil: gardenSoil,
+        length: gardenLength,
+        width: gardenWidth,
+        plantIds: gardenPlantIds,
+      });
+    }
+  };    
+
+  if (!garden) {
+    return (
+      <ScreenContainer>
+        <Text>Garden not found.</Text>
+      </ScreenContainer>
+    );
+  }
+
+  const plants = plantsData.filter(plant => gardenPlantIds.includes(plant.id));
+  const availablePlants = plantsData.filter(plant => !gardenPlantIds.includes(plant.id));
 
   return (
 
@@ -67,18 +97,24 @@ export default function GardensEditScreen() {
           <ScreenHeading title='Plants' level={2} paddingBottom={10} />
         </View>
         <View style={{gap: 12, marginBottom: 30}}>
-          {garden.plants.map((item) => (
+          {plants.map((item) => (
             <PlantListItem
               plantName={item.name}
               plantId={item.id}
               key={item.id}/>
           ))}
         </View>
-        <Link href='/gardens/add-plant' asChild>
-          <ButtonBlock>
-            <Text>Add a Plant to Your Garden</Text>
-          </ButtonBlock>
-        </Link>
+        <ButtonBlock onPress={() => setIsAddPlantOpen(true)}>
+          <Text>Add a Plant to Your Garden</Text>
+        </ButtonBlock>
+         <ButtonBlock onPress={handleSaveChanges} style={{backgroundColor: colors.blue, marginTop: 20}}>
+          <Text>Save Changes</Text>
+        </ButtonBlock>
+        <AddPlantSheet
+          visible={isAddPlantOpen}
+          plants={availablePlants}
+          onAdd={(plantIds) => setGardenPlantIds(ids => [...ids, ...plantIds])}
+          onClose={() => setIsAddPlantOpen(false)} />
       </ScreenContainer>
     </ScrollView>
   );
