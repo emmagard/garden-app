@@ -13,6 +13,9 @@ export default function PlantsNewScreen() {
       // Handle form submission
       console.log(plantValues);
       setPlantValues(emptyPlantFormValues);
+
+      // Then if plant is added successfully, navigate to the new plant's single screen
+      // navigate('/plants/[id]', { id: newPlantId });
     }
   };
 

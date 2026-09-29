@@ -28,7 +28,7 @@ export default function MainTabs() {
         tabBarInactiveTintColor: colors.dark1}}>
         <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" size={28} color={color} />}} />
         <Tabs.Screen name="gardens" options={{ title: 'Gardens', tabBarIcon: ({ color }) => <AntDesign name="layout" size={24} color={color} />  }} />
-        <Tabs.Screen name="plants" options={{title: 'Plants', tabBarIcon:({color}) => <MaterialCommunityIcons name="flower" size={26} color={color} /> }} />
+        <Tabs.Screen name="plants" options={{title: 'Plants', popToTopOnBlur: true, tabBarIcon:({color}) => <MaterialCommunityIcons name="flower" size={26} color={color} /> }} />
         <Tabs.Screen name="account" options={{ title: 'Account', tabBarIcon: ({color}) => <MaterialCommunityIcons name="account" size={30} color={color} />  }} />
       </Tabs>
     );
