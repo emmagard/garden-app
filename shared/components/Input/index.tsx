@@ -1,5 +1,6 @@
+import InputLabel from '@/shared/components/InputLabel';
 import { colors } from '@/shared/styles/colors';
-import { Text, TextInput, TextInputProps, View } from "react-native";
+import { TextInput, TextInputProps, View } from "react-native";
 
 interface InputProps extends TextInputProps {
   label: string;
@@ -8,30 +9,26 @@ interface InputProps extends TextInputProps {
 
 export default function Input({ label, labelPlacement = 'above',  ...rest }: InputProps) {
   const defaultStyle = {
-    border: 'solid',
-    backgroundColor: colors.white,
-    borderWidth: 0,
-    padding: 12,
+    borderWidth: 1,
+    borderColor: colors.black35,
+    backgroundColor: colors.paperLight,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     borderRadius: 8,
+    fontSize: 12,
+    color: colors.ink
   };
   const style = rest.style ? [defaultStyle, rest.style] : defaultStyle;
   
   const containerStyle = {
     flexDirection: labelPlacement == 'above' ? 'column' : 'row',
     alignItems: labelPlacement == 'above' ? 'stretch' : 'baseline',
+    flex: 0,
   } as const;
-
-  const labelStyle = {
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: colors.dark,
-    marginRight: 10,
-    marginBottom: 10
-  };
   
   return (
     <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
+      <InputLabel>{label}</InputLabel>
       <TextInput
         style={style}
         {...rest}

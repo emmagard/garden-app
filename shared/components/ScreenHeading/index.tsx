@@ -10,7 +10,7 @@ type ScreenHeadingProps = {
 
 const fontSizeMap: Record<number, number> = {
   1: 36,
-  2: 24,
+  2: 22,
   3: 18,
   4: 14
 };
@@ -18,7 +18,7 @@ const fontSizeMap: Record<number, number> = {
 export default function ScreenHeading({ title, level = 1, paddingBottom = 16}: ScreenHeadingProps) {
   return (
     <View style={{ paddingBottom: paddingBottom }}>
-      <Text style={{ fontSize: fontSizeMap[level], fontFamily: fonts.heading, color: colors.dark }}>{title}</Text>
+      <Text style={{ fontSize: fontSizeMap[level], fontFamily: fonts.heading, color: colors.dark, fontWeight: 500 }}>{title}</Text>
     </View>
   );
 }

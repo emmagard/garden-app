@@ -10,6 +10,7 @@ import {
   View
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
+import InputLabel from '../InputLabel';
 
 export interface SelectOption {
   label: string
@@ -67,7 +68,7 @@ export function InputSelect({
 
   return (
     <View>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <InputLabel>{label}</InputLabel>}
 
       <TouchableOpacity
         style={[styles.trigger,

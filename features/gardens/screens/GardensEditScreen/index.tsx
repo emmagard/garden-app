@@ -1,6 +1,8 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
 import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
+import ButtonInline from '@/shared/components/Buttons/ButtonInline';
 import Input from '@/shared/components/Input';
+import InputLabel from '@/shared/components/InputLabel';
 import InputSheetSelect from '@/shared/components/InputSheetSelect';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
@@ -9,9 +11,10 @@ import { lightOptions } from '@/shared/constants/lightOptions';
 import { plantsData } from '@/shared/constants/plants';
 import { soilOptions } from '@/shared/constants/soilOptions';
 import { colors } from '@/shared/styles/colors';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { fonts } from '@/shared/styles/fonts';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, TextInput, View } from 'react-native';
 import AddPlantSheet from './components/AddPlantSheet';
 
 export default function GardensEditScreen() {
@@ -64,61 +67,120 @@ export default function GardensEditScreen() {
   const availablePlants = plantsData.filter(plant => !gardenPlantIds.includes(plant.id));
 
   return (
-
     <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
       <ScreenContainer>
-        <ScreenHeading title={`Editting the ${garden.name}`} paddingBottom={30}/>
+        {/* Top Bar */}
+        <View style={{backgroundColor: colors.paper, padding: 0, borderRadius: 10, marginBottom: 24}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
+            <ButtonInline>
+              <Link href={{
+                pathname: '/gardens/single',
+                params: {id: garden.id }
+              }} dismissTo asChild>
+                <Text style={{fontSize: 11, color: colors.ink, fontVariant: ['small-caps']}}>cancel</Text>
+              </Link>
+            </ButtonInline>
+            <Text style={{fontSize: 12, fontVariant: ['small-caps'], color: colors.pencil, marginBottom: 4}}>edit record</Text>
+            <ButtonInline onPress={handleSaveChanges}>
+              <Text style={{fontSize: 11, color: colors.ink, fontVariant: ['small-caps']}}>save</Text>
+            </ButtonInline>
+          </View>
+        </View>
+              
+        {/* Garden Details */}
         <View style={{
-          marginBottom: 30,
+          paddingBottom: 12,
+          marginBottom: 24,
+          borderBottomWidth: 1,
+          borderBottomColor: colors.black35,
           flexDirection: 'column',
-          gap: 20,
+          gap: 8,
         }}>
-            <Input
-              label="Garden Name"
+          <View style={{ flexDirection: 'column', alignItems: 'stretch'}}>
+            <InputLabel>garden name</InputLabel>
+            <TextInput
               value={gardenName} 
-              onChangeText={(newVal) => {setGardenName(newVal)}} />
+              onChangeText={(newVal) => {setGardenName(newVal)}}
+              style={{
+                fontFamily: fonts.heading,
+                fontSize: 20,
+                borderWidth: 1,
+                borderColor: colors.black35,
+                backgroundColor: colors.paperLight,
+                paddingVertical: 8,
+                paddingHorizontal: 10,
+                borderRadius: 8}}/>
+          </View>
+          <View style={{flexDirection: 'row', gap: 10}}>
             <InputSheetSelect
               options={lightOptions}
-              label="Light"
+              label="light"
               value={gardenLight} 
               onChange={(newVal) => {setGardenLight(newVal)}} />
             <InputSheetSelect
               options={soilOptions}
-              label="Soil"
+              label="soil"
               value={gardenSoil}
               onChange={(newVal) => {setGardenSoil(newVal)}} />
             <Input
-              label="Length"
+              label="plot dimensions"
               labelPlacement={'above'}
               value={gardenLength}
               onChangeText={(newVal) => {setGardenLength(newVal)}} />
-            <Input
-              label="Width"
-              labelPlacement={'above'}
-              value={gardenWidth}
-              onChangeText={(newVal) => {setGardenWidth(newVal)}} />
+          </View>
         </View>
+        
+        {/* Plants */}
         <View style={{
-          flexDirection: 'row',
-          gap: 20,
-          marginBottom: 0,
-          alignContent: 'center',
-          alignItems: 'center' }}>
-          <ScreenHeading title='Plants' level={2} paddingBottom={10} />
+          backgroundColor: colors.paper,
+          paddingVertical: 2,
+          marginTop: 24,
+          borderTopWidth: 1,
+          borderColor: colors.black35
+          }}>
+          {/* Wraps the heading and list so the margin rule runs through both. */}
+          <View style={{ marginBottom: 30 }}>
+            <ScreenHeading title='Plants' level={2} paddingBottom={20} />
+
+            {/* Plant List */}
+            <View style={{
+              borderTopWidth: 1,
+              borderColor: colors.black35
+            }}>
+              {plants.length === 0 ?
+                <Text>This garden doesn&apos;t have any plants yet.</Text>
+              :
+                plants.map((item) => (
+                  <PlantListItem
+                    plant={item}
+                    key={item.id}/>
+                ))
+              }
+               {/* Vertical margin rule. Comes after the heading and rows so it draws on top
+                of their paper background; pointerEvents 'none' lets taps reach the rows. */}
+              <View style={{
+                position: 'absolute',
+                top: -4,
+                bottom: -4,
+                left: 32,
+                width: 1,
+                backgroundColor: colors.fadedRed,
+                pointerEvents: 'none',
+              }} />
+            </View>
+          </View>
         </View>
-        <View style={{gap: 12, marginBottom: 30}}>
-          {plants.map((item) => (
-            <PlantListItem
-              plant={item}
-              key={item.id}/>
-          ))}
-        </View>
-        <ButtonBlock onPress={() => setIsAddPlantOpen(true)}>
-          <Text>Add a Plant to Your Garden</Text>
+        
+        <ButtonBlock
+          onPress={() => setIsAddPlantOpen(true)}
+          style={{
+            borderWidth: 1,
+            borderColor: colors.black35,
+            marginTop: 20,
+            marginBottom: 40 }}>
+          <Text style={{fontSize: 13, color: colors.ink, fontVariant: ['small-caps']}}>+ add a plant</Text>
         </ButtonBlock>
-         <ButtonBlock onPress={handleSaveChanges} style={{backgroundColor: colors.blue, marginTop: 20}}>
-          <Text>Save Changes</Text>
-        </ButtonBlock>
+       
         <AddPlantSheet
           visible={isAddPlantOpen}
           plants={availablePlants}

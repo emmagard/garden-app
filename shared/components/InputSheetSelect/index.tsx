@@ -3,6 +3,7 @@ import ScreenHeading from '@/shared/components/ScreenHeading';
 import { colors } from '@/shared/styles/colors';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
+import InputLabel from '../InputLabel';
 
 export type SheetSelectOption = {
   label: string;
@@ -34,13 +35,8 @@ export default function InputSheetSelect({
   };
 
   return (
-    <View>
-      <Text style={{
-        fontWeight: 'bold',
-        fontSize: 18,
-        color: colors.dark,
-        marginBottom: 10
-      }}>{label}</Text>
+    <View style={{flex: 1}}>
+      <InputLabel>{label}</InputLabel>
       <Pressable
         onPress={() => setIsOpen(true)}
         accessibilityRole="combobox"
@@ -51,13 +47,16 @@ export default function InputSheetSelect({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: colors.white,
+          backgroundColor: colors.paperLight,
           borderRadius: 8,
-          padding: 12,
+          borderWidth: 1,
+          borderColor: colors.black35,
+          paddingHorizontal: 10,
+          paddingVertical: 6,
           opacity: pressed ? 0.7 : 1,
         })}
       >
-        <Text style={{color: selected ? colors.dark : colors.dark1}}>
+        <Text style={{color: selected ? colors.ink : colors.dark1, fontSize: 12}}>
           {selected?.label ?? placeholder}
         </Text>
         <Text style={{color: colors.dark1, fontSize: 20, lineHeight: 20}}>›</Text>

@@ -6,8 +6,8 @@ export default function ButtonBlock({ children, ...rest }: PressableProps) {
   const defaultStyle = {
     alignSelf: 'stretch',
     alignItems: 'center',
-    backgroundColor: colors.greenBright,
-    paddingVertical: 20,
+    backgroundColor: colors.paperLight,
+    paddingVertical: 16,
     paddingHorizontal: 20,
     borderRadius: 8,
     opacity: isDisabled ? 0.5 : 1

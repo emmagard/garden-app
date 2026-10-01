@@ -10,5 +10,11 @@ export const colors = {
   red: '#f6672a',
   white: '#ffffff',
   black: '#000000',
-  black35: 'rgba(0, 0, 0, 0.35)'
+  black35: '#CFC6AC',
+  paper: '#F1EBD9',
+  paperLight: '#rgba(247, 242, 229, 0.65)',
+  ink: '#2D332B',
+  pencil: '#707467',
+  fadedRed: '#c5aca2',
+  greenDark: '#445B45'
 };

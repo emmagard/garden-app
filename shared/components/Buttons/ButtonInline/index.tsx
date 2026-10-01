@@ -4,10 +4,12 @@ import { Pressable, PressableProps } from "react-native";
 export default function ButtonInline({ children, ...rest }: PressableProps) {
   const isDisabled = rest.disabled;
   const defaultStyle = {
-    backgroundColor: colors.greenBright,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    backgroundColor: colors.paperLight,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: colors.black35,
     opacity: isDisabled ? 0.5 : 1
   };
   

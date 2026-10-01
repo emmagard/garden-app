@@ -16,7 +16,7 @@ export default function GardensScreen() {
 
   return (
     <ScreenContainer>
-      <ScreenHeading title="Your Gardens" />
+      <ScreenHeading title="Your Gardens"/>
 
       { gardens.length === 0 ?
         <>

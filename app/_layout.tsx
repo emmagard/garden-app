@@ -29,7 +29,7 @@ export default function RootLayout() {
   const { isAuthenticated, hasCompletedOnboarding } = useSession();
   const shouldCompleteOnboarding = isAuthenticated && !hasCompletedOnboarding;
   const [fontsLoaded, fontError] = useFonts({
-    [fonts.heading]: require('@/assets/SpecialGothicExpandedOne-Regular.ttf'),
+    [fonts.heading]: require('@/assets/Lora-VariableFont_wght.ttf'),
   });
 
   useEffect(() => {
