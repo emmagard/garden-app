@@ -1,7 +1,7 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
 import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
 import Input from '@/shared/components/Input';
-import { InputSelect } from '@/shared/components/InputSelect';
+import InputSheetSelect from '@/shared/components/InputSheetSelect';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { gardensData } from '@/shared/constants/gardens';
@@ -9,7 +9,7 @@ import { lightOptions } from '@/shared/constants/lightOptions';
 import { plantsData } from '@/shared/constants/plants';
 import { soilOptions } from '@/shared/constants/soilOptions';
 import { colors } from '@/shared/styles/colors';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import AddPlantSheet from './components/AddPlantSheet';
@@ -26,6 +26,7 @@ export default function GardensEditScreen() {
   const [gardenWidth, setGardenWidth] = useState(garden?.width ?? '');
   const [gardenPlantIds, setGardenPlantIds] = useState(garden?.plantIds ?? []);
   const [isAddPlantOpen, setIsAddPlantOpen] = useState(false);
+  const router = useRouter();
 
   const handleSaveChanges = () => {
     if (garden) {
@@ -38,6 +39,15 @@ export default function GardensEditScreen() {
         length: gardenLength,
         width: gardenWidth,
         plantIds: gardenPlantIds,
+      });
+
+      // You would typically update the garden in your data store here
+      // Then navigate back to the garden's detail page or show a success message.
+      // dismissTo goes back to the single screen if it's underneath (opened from
+      // there), otherwise replaces this screen with it (opened from the list).
+      router.dismissTo({
+        pathname: '/gardens/single',
+        params: { id: garden.id }
       });
     }
   };    
@@ -55,7 +65,7 @@ export default function GardensEditScreen() {
 
   return (
 
-    <ScrollView style={{flexGrow: 1}}>
+    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
       <ScreenContainer>
         <ScreenHeading title={`Editting the ${garden.name}`} paddingBottom={30}/>
         <View style={{
@@ -67,12 +77,12 @@ export default function GardensEditScreen() {
               label="Garden Name"
               value={gardenName} 
               onChangeText={(newVal) => {setGardenName(newVal)}} />
-            <InputSelect
+            <InputSheetSelect
               options={lightOptions}
               label="Light"
               value={gardenLight} 
               onChange={(newVal) => {setGardenLight(newVal)}} />
-            <InputSelect
+            <InputSheetSelect
               options={soilOptions}
               label="Soil"
               value={gardenSoil}
@@ -99,8 +109,7 @@ export default function GardensEditScreen() {
         <View style={{gap: 12, marginBottom: 30}}>
           {plants.map((item) => (
             <PlantListItem
-              plantName={item.name}
-              plantId={item.id}
+              plant={item}
               key={item.id}/>
           ))}
         </View>

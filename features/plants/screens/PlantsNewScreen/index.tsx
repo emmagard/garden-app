@@ -20,7 +20,7 @@ export default function PlantsNewScreen() {
   };
 
   return (
-    <ScrollView style={{flexGrow: 1}}>
+    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
       <ScreenContainer>
         <ScreenHeading title="Add New Plant" paddingBottom={30}/>
         <PlantForm values={plantValues} onChange={setPlantValues} />

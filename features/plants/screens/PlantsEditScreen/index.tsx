@@ -30,7 +30,7 @@ export default function PlantsEditScreen() {
   }
 
   return (
-    <ScrollView style={{flexGrow: 1}}>
+    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
       <ScreenContainer>
         <ScreenHeading title={`Editing ${plant.name}`} paddingBottom={30}/>
         <PlantForm values={plantValues} onChange={setPlantValues} />

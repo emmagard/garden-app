@@ -1,9 +1,17 @@
 import useSession from '@/shared/store/useSession';
 import { colors } from '@/shared/styles/colors';
+import { fonts } from '@/shared/styles/fonts';
+import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export const unstable_settings = {
   anchor: '(tabs)',
 };
+
+// Keep the splash screen up until custom fonts have loaded.
+SplashScreen.preventAutoHideAsync();
 // Expo Router docs: https://docs.expo.dev/router/basics/core-concepts/
 
 /**
@@ -20,8 +28,23 @@ export const unstable_settings = {
 export default function RootLayout() {
   const { isAuthenticated, hasCompletedOnboarding } = useSession();
   const shouldCompleteOnboarding = isAuthenticated && !hasCompletedOnboarding;
+  const [fontsLoaded, fontError] = useFonts({
+    [fonts.heading]: require('@/assets/SpecialGothicExpandedOne-Regular.ttf'),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  // If the font fails to load, carry on with the system font rather than blocking the app.
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
+    <GestureHandlerRootView style={{flex: 1}}>
     <Stack screenOptions={{ headerShown: false, contentStyle: {backgroundColor: colors.light} }}>
       <Stack.Protected guard={!isAuthenticated}>
         <Stack.Screen name="(auth)" />
@@ -33,5 +56,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
       </Stack.Protected>
     </Stack>
+    </GestureHandlerRootView>
   )
 }

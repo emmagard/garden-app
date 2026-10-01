@@ -19,7 +19,7 @@ function GardenListItem({ gardenName, gardenId }: { gardenName: string; gardenId
       accessibilityRole="button"
       accessibilityLabel={`View ${gardenName}`}
       style={({ pressed }) => ({
-        marginTop: 10,
+        marginTop: 12,
         backgroundColor: colors.white,
         borderRadius: 5,
         paddingVertical: 16,

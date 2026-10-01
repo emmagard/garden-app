@@ -18,7 +18,7 @@ export default function PlantsSingleScreen() {
   }
 
   return (
-    <ScrollView style={{flexGrow: 1}}>
+    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
       <ScreenContainer>
         <ScreenHeading title={plant.name} />
         <View style={{marginBottom: 20}}>

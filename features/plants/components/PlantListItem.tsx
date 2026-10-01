@@ -1,15 +1,17 @@
-import ScreenHeading from '@/shared/components/ScreenHeading';
 import { colors } from '@/shared/styles/colors';
 import { useRouter } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import PlantHeightIcon from './PlantHeightIcon';
 
-function PlantListItem({ plantName, plantId }: { plantName: string; plantId: string }) {
+const isWhite = (color: string) => ['#FFFFFF', '#FFF', 'WHITE'].includes(color.toUpperCase());
+
+function PlantListItem({ plant }: { plant: { id: string; name: string; color: string; height: string } }) {
   const router = useRouter();
 
   const openPlant = () => {
     router.push({
       pathname: '/plants/single',
-      params: { id: plantId }
+      params: { id: plant.id }
     });
   };
 
@@ -17,8 +19,9 @@ function PlantListItem({ plantName, plantId }: { plantName: string; plantId: str
     <Pressable
       onPress={openPlant}
       accessibilityRole="button"
-      accessibilityLabel={`View ${plantName}`}
+      accessibilityLabel={`View ${plant.name}`}
       style={({ pressed }) => ({
+        marginTop: 12,
         backgroundColor: colors.white,
         borderRadius: 8,
         paddingVertical: 16,
@@ -31,7 +34,20 @@ function PlantListItem({ plantName, plantId }: { plantName: string; plantId: str
         opacity: pressed ? 0.7 : 1
       })}
     >
-      <ScreenHeading title={plantName} level={3} paddingBottom={0}/>
+      <Text style={{fontSize: 16}}>{plant.name}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <PlantHeightIcon height={plant.height} />
+        <View style={{
+          width: 22,
+          height: 22,
+          borderRadius: 50,
+          backgroundColor: plant.color,
+          // Outline white so it stays visible against the white row. The border is
+          // always there (transparent otherwise) so every dot is the same size.
+          borderWidth: 1,
+          borderColor: isWhite(plant.color) ? colors.dark1 : 'transparent',
+        }} />
+      </View>
     </Pressable>
   );
 }

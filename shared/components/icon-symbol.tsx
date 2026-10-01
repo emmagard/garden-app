@@ -21,6 +21,7 @@ const MAPPING = {
   'person': 'person',
   'network': 'device-hub',
   'arrow.backward': 'arrow-back',
+  'pencil': 'edit',
 } as IconMapping;
 
 /**

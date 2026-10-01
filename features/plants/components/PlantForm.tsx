@@ -1,5 +1,7 @@
 import Input from '@/shared/components/Input';
-import { InputSelect } from '@/shared/components/InputSelect';
+import InputColorPicker from '@/shared/components/InputColorPicker';
+import { colorSwatches } from '@/shared/constants/colorSwatches';
+import InputSheetSelect from '@/shared/components/InputSheetSelect';
 import { heightOptions } from '@/shared/constants/heightOptions';
 import { View } from 'react-native';
 
@@ -43,11 +45,12 @@ function PlantForm({ values, onChange }: PlantFormProps) {
           label="Scientific Name"
           value={values.scientificName}
           onChangeText={setField('scientificName')} />
-        <Input
+        <InputColorPicker
+          swatches={colorSwatches}
           label="Color"
           value={values.color}
-          onChangeText={setField('color')} />
-        <InputSelect
+          onChange={setField('color')} />
+        <InputSheetSelect
           options={heightOptions}
           label="Height"
           value={values.height}

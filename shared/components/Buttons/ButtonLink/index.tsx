@@ -10,16 +10,19 @@ interface ButtonLinkProps extends PressableProps {
 const sizeMap = {
   'small': {
     pv: 6,
-    ph: 16
+    ph: 16,
+    fs: 14
   },
   'medium': {
     pv: 10,
-    ph: 20
+    ph: 20,
+    fs: 16
   },
-  'large': {
-    pv: 14,
-    ph: 24
-  }
+    'large': {
+      pv: 14,
+      ph: 24,
+      fs: 18
+    }
 };
 
 export default function ButtonLink({ size = 'medium', href, children, ...rest }: ButtonLinkProps) {
@@ -41,7 +44,7 @@ export default function ButtonLink({ size = 'medium', href, children, ...rest }:
         disabled={isDisabled}
         style={{
           paddingHorizontal: sizeMap[size].ph,
-          paddingVertical: sizeMap[size].pv,
+          paddingVertical: sizeMap[size].pv
         }}>
         {children}
       </Button>

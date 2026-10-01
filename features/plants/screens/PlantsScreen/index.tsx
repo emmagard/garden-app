@@ -1,3 +1,4 @@
+import PlantListItem from '@/features/plants/components/PlantListItem';
 import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
@@ -26,7 +27,9 @@ export default function PlantsScreen() {
           data={plants}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Text>{item.name}</Text>
+            <PlantListItem
+              plant={item}
+              key={item.id}/>
           )}
         />
       }

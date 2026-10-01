@@ -5,7 +5,7 @@ export const gardensData = [{
   length: '5 ft',
   light: 'mostly-sun',
   soil: 'clay',
-  plantIds: ['p1']
+  plantIds: ['p1', 'p2', 'p3', 'p4', 'p5']
 },
 {
   id: '2',

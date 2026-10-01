@@ -1,13 +1,13 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
-import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
-import ButtonInline from '@/shared/components/Buttons/ButtonInline';
 import { IconSymbol } from '@/shared/components/icon-symbol';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
+import { colors } from '@/shared/styles/colors';
+
 import { gardensData } from '@/shared/constants/gardens';
 import { plantsData } from '@/shared/constants/plants';
 import { Link, useLocalSearchParams } from 'expo-router';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 export default function GardensSingleScreen() {
   const {id} = useLocalSearchParams();
@@ -24,46 +24,47 @@ export default function GardensSingleScreen() {
   const plants = plantsData.filter(plant => garden.plantIds.includes(plant.id));
 
   return (
-    <ScrollView style={{flexGrow: 1}}>
+    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
       <ScreenContainer>
         <Link href='/gardens' dismissTo asChild>
-          <ButtonInline style={{flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', marginBottom: 20}}>
-            <IconSymbol name='arrow.backward'/>
-            <Text style={{marginLeft: 5}}>
-               All gardens
-            </Text>
-          </ButtonInline>
+        <Pressable style={{marginBottom: 20}}>
+          <IconSymbol name='arrow.backward'/>
+        </Pressable>
         </Link>
-        <ScreenHeading title={garden.name} />
-        <View style={{marginBottom: 20}}>
-          <Text>Light: {garden.light}</Text>
-          <Text>Soil: {garden.soil}</Text>
-          <Text>Length: {garden.length}</Text>
-          <Text>Width: {garden.width}</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
+          <ScreenHeading title={garden.name} />
+          <Link
+            href={{
+              pathname: '/gardens/edit',
+              params: {id: garden.id }
+            }}
+            asChild>
+            <Pressable>
+              <IconSymbol name='pencil' size={24} color={colors.dark} />
+            </Pressable>
+          </Link>
         </View>
-        <ScreenHeading title='Plants' level={2} paddingBottom={10} />
-        <View style={{gap: 12, marginBottom: 30}}>
+        
+        <View style={{marginBottom: 30}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 4}}>
+            <Text style={{fontWeight: 'bold', marginRight: 10, color: colors.dark}}>{garden.light}</Text>
+            <Text style={{fontWeight: 'bold', color: colors.dark}}>{garden.soil}</Text>
+          </View>
+          <Text style={{fontWeight: 'bold', color: colors.dark}}>Dimensions: {garden.width} x {garden.length}</Text>
+        </View>
+        <ScreenHeading title='Plants' level={2} paddingBottom={12} />
+        <View style={{marginBottom: 30}}>
           {plants.length === 0 ?
             <Text>This garden doesn&apos;t have any plants yet.</Text>
           :
             plants.map((item) => (
               <PlantListItem
-                plantName={item.name}
-                plantId={item.id}
+                plant={item}
                 key={item.id}/>
             ))
           }
         </View>
-        <Link
-          href={{
-            pathname: '/gardens/edit',
-            params: {id: garden.id }
-          }}
-          asChild>
-          <ButtonBlock>
-            <Text>Edit Garden</Text>
-          </ButtonBlock>
-        </Link>
+       
       </ScreenContainer>
     </ScrollView>
   );
