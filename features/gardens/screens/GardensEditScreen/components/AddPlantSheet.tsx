@@ -2,6 +2,8 @@ import type { Plant } from '@/features/plants/types';
 import BottomSheet from '@/shared/components/BottomSheet';
 import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
 import ScreenHeading from '@/shared/components/ScreenHeading';
+import SelectableRow from '@/shared/components/SelectableRow';
+import SmallCapsText from '@/shared/components/SmallCapsText';
 import { colors } from '@/shared/styles/colors';
 import { useRouter } from 'expo-router';
 import { useRef, useState } from 'react';
@@ -45,36 +47,19 @@ function AddPlantSheet({ visible, plants, onAdd, onClose }: AddPlantSheetProps) 
 
   return (
     <BottomSheet visible={visible} onClose={onClose} onClosed={handleClosed}>
-      <ScreenHeading title="Add plants" level={2} paddingBottom={0}/>
+      <ScreenHeading title="Add Plants" level={2} paddingBottom={0}/>
 
       {plants.length === 0 ?
         <Text>All of your plants are already in this garden.</Text>
       :
         <ScrollView contentContainerStyle={{gap: 12}}>
-          {plants.map(plant => {
-            const isSelected = selectedIds.includes(plant.id);
-
-            return (
-              <Pressable
-                key={plant.id}
-                onPress={() => toggle(plant.id)}
-                accessibilityRole="checkbox"
-                accessibilityState={{ checked: isSelected }}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: isSelected ? colors.greenLight : colors.white,
-                  borderRadius: 8,
-                  paddingVertical: 16,
-                  paddingHorizontal: 16,
-                }}
-              >
-                <ScreenHeading title={plant.name} level={3} paddingBottom={0}/>
-                <Text style={{color: colors.dark, fontSize: 18}}>{isSelected ? '✓' : ''}</Text>
-              </Pressable>
-            );
-          })}
+          {plants.map(plant => (
+            <SelectableRow
+              key={plant.id}
+              label={plant.name}
+              selected={selectedIds.includes(plant.id)}
+              onPress={() => toggle(plant.id)} />
+          ))}
         </ScrollView>
       }
 
@@ -85,20 +70,21 @@ function AddPlantSheet({ visible, plants, onAdd, onClose }: AddPlantSheetProps) 
           alignItems: 'center',
           borderWidth: 1,
           borderStyle: 'dashed',
-          borderColor: colors.dark1,
+          borderColor: colors.black35,
+          backgroundColor: colors.paperExtraLight,
           borderRadius: 8,
           paddingVertical: 16,
           paddingHorizontal: 16,
           opacity: pressed ? 0.7 : 1,
         })}
       >
-        <Text style={{color: colors.dark, fontWeight: 'bold'}}>+ Create a new plant</Text>
+        <SmallCapsText size={14}>+ create a new plant</SmallCapsText>
       </Pressable>
 
-      <ButtonBlock onPress={add} disabled={selectedIds.length === 0}>
-        <Text>
-          {selectedIds.length > 1 ? `Add ${selectedIds.length} Plants` : 'Add Plant'}
-        </Text>
+      <ButtonBlock onPress={add} disabled={selectedIds.length === 0} style={{backgroundColor: colors.greenDark, borderWidth: 1, borderColor: colors.black35}}>
+        <SmallCapsText size={13} color={colors.paperExtraLight}>
+          {selectedIds.length > 1 ? `add ${selectedIds.length} plants` : 'add plant'}
+        </SmallCapsText>
       </ButtonBlock>
     </BottomSheet>
   );

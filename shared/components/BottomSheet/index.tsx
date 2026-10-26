@@ -57,7 +57,7 @@ export default function BottomSheet({ visible, onClose, onClosed, children }: Bo
     >
       {/* Modals render outside the app's root view, so gestures need their own root (Android). */}
       <GestureHandlerRootView style={{flex: 1}}>
-      <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: colors.black35, opacity: backdropAnim}]}>
+      <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: colors.shaded, opacity: backdropAnim}]}>
         <Pressable
           onPress={onClose}
           accessibilityLabel="Close"
@@ -68,7 +68,7 @@ export default function BottomSheet({ visible, onClose, onClosed, children }: Bo
         style={{flex: 1, justifyContent: 'flex-end', transform: [{ translateY: sheetTranslateY }]}}
       >
         <Animated.View style={{
-          backgroundColor: colors.light,
+          backgroundColor: colors.paperLight,
           borderTopLeftRadius: 16,
           borderTopRightRadius: 16,
           maxHeight: '70%',

@@ -1,8 +1,10 @@
 import Input from '@/shared/components/Input';
 import InputColorPicker from '@/shared/components/InputColorPicker';
-import { colorSwatches } from '@/shared/constants/colorSwatches';
 import InputSheetSelect from '@/shared/components/InputSheetSelect';
+import InputTitle from '@/shared/components/InputTitle';
+import { colorSwatches } from '@/shared/constants/colorSwatches';
 import { heightOptions } from '@/shared/constants/heightOptions';
+import { colors } from '@/shared/styles/colors';
 import { View } from 'react-native';
 
 export type PlantFormValues = {
@@ -33,32 +35,45 @@ function PlantForm({ values, onChange }: PlantFormProps) {
 
   return (
     <View style={{
-      marginBottom: 30,
+      paddingBottom: 12,
+      marginBottom: 24,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.black35,
       flexDirection: 'column',
-      gap: 20,
+      gap: 8,
     }}>
-        <Input
-          label="Plant Name"
-          value={values.name}
-          onChangeText={setField('name')} />
-        <Input
-          label="Scientific Name"
-          value={values.scientificName}
-          onChangeText={setField('scientificName')} />
-        <InputColorPicker
-          swatches={colorSwatches}
-          label="Color"
-          value={values.color}
-          onChange={setField('color')} />
-        <InputSheetSelect
-          options={heightOptions}
-          label="Height"
-          value={values.height}
-          onChange={setField('height')} />
-        <Input
-          label="Width"
-          value={values.width}
-          onChangeText={setField('width')} />
+      <InputTitle
+        label="plant name"
+        value={values.name}
+        onChangeText={setField('name')} />
+      <Input
+        label="scientific name"
+        value={values.scientificName}
+        onChangeText={setField('scientificName')} />
+      <View style={{ flexDirection: 'row', gap: 10 }}>
+        <View style={{ flex: 1 }}>
+          <InputColorPicker
+            swatches={colorSwatches}
+            label="color"
+            placeholder="select"
+            value={values.color}
+            onChange={setField('color')} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <InputSheetSelect
+            options={heightOptions}
+            label="height"
+            placeholder="select"
+            value={values.height}
+            onChange={setField('height')} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Input
+            label="width"
+            value={values.width}
+            onChangeText={setField('width')} />
+        </View>
+      </View>
     </View>
   );
 }

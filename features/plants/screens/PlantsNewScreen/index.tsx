@@ -1,12 +1,22 @@
 import PlantForm, { emptyPlantFormValues } from '@/features/plants/components/PlantForm';
-import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
+import FormTopBar from '@/shared/components/FormTopBar';
 import ScreenContainer from '@/shared/components/ScreenContainer';
-import ScreenHeading from '@/shared/components/ScreenHeading';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, Text } from 'react-native';
 
 export default function PlantsNewScreen() {
   const [plantValues, setPlantValues] = useState(emptyPlantFormValues);
+  const router = useRouter();
+
+  const handleCancel = () => {
+    // This screen can be opened from the plants list or the garden edit screen,
+    // so go back to wherever it came from.
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/plants');
+    }
+  };
 
   const handleAddPlant = () => {
     if (plantValues.name.trim()) {
@@ -20,14 +30,14 @@ export default function PlantsNewScreen() {
   };
 
   return (
-    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
-      <ScreenContainer>
-        <ScreenHeading title="Add New Plant" paddingBottom={30}/>
-        <PlantForm values={plantValues} onChange={setPlantValues} />
-        <ButtonBlock onPress={handleAddPlant}>
-          <Text>Add Plant</Text>
-        </ButtonBlock>
-      </ScreenContainer>
-    </ScrollView>
+    <ScreenContainer scroll>
+      <FormTopBar
+        title="new plant record"
+        onCancel={handleCancel}
+        onSave={handleAddPlant}
+        saveDisabled={!plantValues.name.trim()} />
+
+      <PlantForm values={plantValues} onChange={setPlantValues} />
+    </ScreenContainer>
   );
 }

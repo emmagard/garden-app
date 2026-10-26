@@ -1,16 +1,12 @@
+import { useGardens } from '@/features/gardens/hooks/useGardens';
 import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
-import { gardensData } from '@/shared/constants/gardens';
 import { FlatList, Text } from 'react-native';
 import GardenListItem from './components/GardenListItem';
 
-const useGetGardens = () => {
-  return gardensData;
-};
-
 export default function GardensScreen() {
-  const gardens = useGetGardens();
+  const gardens = useGardens();
 
   if (!gardens) { return false; }
 

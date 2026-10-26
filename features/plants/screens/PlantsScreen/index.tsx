@@ -1,16 +1,12 @@
 import PlantListItem from '@/features/plants/components/PlantListItem';
+import { usePlants } from '@/features/plants/hooks/usePlants';
 import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
-import { plantsData } from '@/shared/constants/plants';
 import { FlatList, Text } from 'react-native';
 
-const useGetPlants = () => {
-  return plantsData;
-};
-
 export default function PlantsScreen() {
-  const plants = useGetPlants();
+  const plants = usePlants();
 
   return (
     <ScreenContainer>

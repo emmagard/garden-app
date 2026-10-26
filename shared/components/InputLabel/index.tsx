@@ -1,19 +1,19 @@
+import SmallCapsText from '@/shared/components/SmallCapsText';
 import { colors } from '@/shared/styles/colors';
-import { Text, TextProps, TextStyle } from 'react-native';
+import { TextProps, TextStyle } from 'react-native';
 
-export default function InputLabel({ style, children, ...rest }: TextProps) {
+export default function InputLabel({ style, ...rest }: TextProps) {
   const defaultStyle: TextStyle = {
-    fontSize: 12,
     fontWeight: '500',
-    fontVariant: ['small-caps'],
-    color: colors.greenDark,
     marginRight: 10,
     marginBottom: 2
   };
 
   return (
-    <Text style={style ? [defaultStyle, style] : defaultStyle} {...rest}>
-      {children}
-    </Text>
+    <SmallCapsText
+      size={12}
+      color={colors.greenDark}
+      style={style ? [defaultStyle, style] : defaultStyle}
+      {...rest} />
   );
 }

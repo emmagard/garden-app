@@ -1,5 +1,6 @@
 import BottomSheet from '@/shared/components/BottomSheet';
 import ScreenHeading from '@/shared/components/ScreenHeading';
+import SelectableRow from '@/shared/components/SelectableRow';
 import { colors } from '@/shared/styles/colors';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
@@ -65,32 +66,15 @@ export default function InputSheetSelect({
       <BottomSheet visible={isOpen} onClose={() => setIsOpen(false)}>
         <ScreenHeading title={label} level={2} paddingBottom={0}/>
         <ScrollView contentContainerStyle={{gap: 12}}>
-          {options.map(option => {
-            const isSelected = option.value === value;
-
-            return (
-              <Pressable
-                key={option.value}
-                onPress={() => select(option.value)}
-                disabled={option.disabled}
-                accessibilityRole="radio"
-                accessibilityState={{ checked: isSelected, disabled: option.disabled }}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: isSelected ? colors.greenLight : colors.white,
-                  borderRadius: 8,
-                  paddingVertical: 16,
-                  paddingHorizontal: 16,
-                  opacity: option.disabled ? 0.5 : 1,
-                }}
-              >
-                <ScreenHeading title={option.label} level={3} paddingBottom={0}/>
-                <Text style={{color: colors.dark, fontSize: 18}}>{isSelected ? '✓' : ''}</Text>
-              </Pressable>
-            );
-          })}
+          {options.map(option => (
+            <SelectableRow
+              key={option.value}
+              label={option.label}
+              selected={option.value === value}
+              onPress={() => select(option.value)}
+              disabled={option.disabled}
+              accessibilityRole="radio" />
+          ))}
         </ScrollView>
       </BottomSheet>
     </View>

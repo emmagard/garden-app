@@ -1,18 +1,26 @@
 import PlantForm, { emptyPlantFormValues } from '@/features/plants/components/PlantForm';
-import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
+import { usePlant } from '@/features/plants/hooks/usePlants';
+import FormTopBar from '@/shared/components/FormTopBar';
 import ScreenContainer from '@/shared/components/ScreenContainer';
-import ScreenHeading from '@/shared/components/ScreenHeading';
-import { plantsData } from '@/shared/constants/plants';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { Text } from 'react-native';
 
 export default function PlantsEditScreen() {
-  const {id} = useLocalSearchParams();
-  const plant = plantsData.find(plant => plant.id === id);
+  const {id} = useLocalSearchParams<{ id: string }>();
+  const plant = usePlant(id);
+  const router = useRouter();
 
   // Hooks must run before the early return below, so fall back to empty values.
   const [plantValues, setPlantValues] = useState(plant ?? emptyPlantFormValues);
+
+  const handleCancel = () => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace({ pathname: '/plants/single', params: { id } });
+    }
+  };
 
   const handleSavePlant = () => {
     if (plantValues.name.trim()) {
@@ -30,14 +38,14 @@ export default function PlantsEditScreen() {
   }
 
   return (
-    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
-      <ScreenContainer>
-        <ScreenHeading title={`Editing ${plant.name}`} paddingBottom={30}/>
-        <PlantForm values={plantValues} onChange={setPlantValues} />
-         <ButtonBlock onPress={handleSavePlant}>
-            <Text>Save Plant</Text>
-          </ButtonBlock>
-      </ScreenContainer>
-    </ScrollView>
+    <ScreenContainer scroll>
+      <FormTopBar
+        title="edit plant record"
+        onCancel={handleCancel}
+        onSave={handleSavePlant}
+        saveDisabled={!plantValues.name.trim()} />
+
+      <PlantForm values={plantValues} onChange={setPlantValues} />
+    </ScreenContainer>
   );
 }

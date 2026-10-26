@@ -1,10 +1,15 @@
 import { colors } from "@/shared/styles/colors";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+type ScreenContainerProps = {
+  children: React.ReactNode;
+  // Wrap the screen in a ScrollView that still fills the viewport when content is short.
+  scroll?: boolean;
+};
 
-export default function ScreenContainer({ children }: { children: React.ReactNode }) {
-  return (
+export default function ScreenContainer({ children, scroll = false }: ScreenContainerProps) {
+  const content = (
     <SafeAreaView style={{
       backgroundColor: colors.paper,
       display: 'flex',
@@ -13,5 +18,13 @@ export default function ScreenContainer({ children }: { children: React.ReactNod
         {children}
       </View>
     </SafeAreaView>
+  );
+
+  if (!scroll) return content;
+
+  return (
+    <ScrollView style={{flexGrow: 1}} contentContainerStyle={{flexGrow: 1}}>
+      {content}
+    </ScrollView>
   );
 }

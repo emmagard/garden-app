@@ -1,5 +1,7 @@
 import BottomSheet from '@/shared/components/BottomSheet';
 import ButtonBlock from '@/shared/components/Buttons/ButtonBlock';
+import ColorDot from '@/shared/components/ColorDot';
+import InputLabel from '@/shared/components/InputLabel';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import { colors } from '@/shared/styles/colors';
 import { useState } from 'react';
@@ -19,20 +21,6 @@ type InputColorPickerProps = {
 const DEFAULT_COLOR = '#FFFFFF';
 
 const toHex = (color: string) => colorKit.HEX(color).toUpperCase();
-
-function Swatch({ color, size }: { color: string; size: number }) {
-  return (
-    <View style={{
-      width: size,
-      height: size,
-      borderRadius: size / 2,
-      backgroundColor: color,
-      // Keeps light colors like white visible against the background.
-      borderWidth: 1,
-      borderColor: colors.dark1,
-    }} />
-  );
-}
 
 export default function InputColorPicker({
   value,
@@ -57,12 +45,7 @@ export default function InputColorPicker({
 
   return (
     <View>
-      <Text style={{
-        fontWeight: 'bold',
-        fontSize: 18,
-        color: colors.dark,
-        marginBottom: 10
-      }}>{label}</Text>
+      <InputLabel>{label}</InputLabel>
       <Pressable
         onPress={open}
         accessibilityRole="button"
@@ -72,15 +55,18 @@ export default function InputColorPicker({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: colors.white,
+          backgroundColor: colors.paperLight,
           borderRadius: 8,
-          padding: 12,
+          borderWidth: 1,
+          borderColor: colors.black35,
+          paddingHorizontal: 10,
+          paddingVertical: 6,
           opacity: pressed ? 0.7 : 1,
         })}
       >
-        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
-          {value ? <Swatch color={value} size={20} /> : null}
-          <Text style={{color: value ? colors.dark : colors.dark1}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', gap: 6}}>
+          {value ? <ColorDot color={value} size={14} /> : null}
+          <Text style={{color: value ? colors.ink : colors.dark1, fontSize: 12}}>
             {value || placeholder}
           </Text>
         </View>

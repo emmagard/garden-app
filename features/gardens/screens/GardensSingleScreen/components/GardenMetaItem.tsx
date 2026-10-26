@@ -1,3 +1,4 @@
+import SmallCapsText from '@/shared/components/SmallCapsText';
 import { colors } from '@/shared/styles/colors';
 import { Text, View } from 'react-native';
 
@@ -6,7 +7,7 @@ function GardenMetaItem({ label, value }: { label: string; value: string }) {
   // ignored on a Text nested inside another Text.
   return (
     <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-      <Text style={{ fontSize: 12, color: colors.ink, fontVariant: ['small-caps'], marginRight: 5 }}>{label}</Text>
+      <SmallCapsText size={12} style={{ marginRight: 5 }}>{label}</SmallCapsText>
       <Text style={{ fontSize: 12, color: colors.ink }}>{value}</Text>
     </View>
   );
