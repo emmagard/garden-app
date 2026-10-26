@@ -1,14 +1,15 @@
 import useSession from '@/shared/store/useSession';
 import { colors } from '@/shared/styles/colors';
-import { fonts } from '@/shared/styles/fonts';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export const unstable_settings = {
   anchor: '(tabs)',
 };
+
+import { fonts } from '@/shared/styles/fonts';
+import { useFonts } from 'expo-font';
+import { useEffect } from 'react';
 
 // Keep the splash screen up until custom fonts have loaded.
 SplashScreen.preventAutoHideAsync();
@@ -53,7 +54,7 @@ export default function RootLayout() {
         <Stack.Screen name="onboarding" />
       </Stack.Protected>
       <Stack.Protected guard={isAuthenticated && hasCompletedOnboarding}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(tabs)/gardens" />
       </Stack.Protected>
     </Stack>
     </GestureHandlerRootView>

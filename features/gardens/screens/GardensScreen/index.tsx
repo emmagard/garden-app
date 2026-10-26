@@ -1,8 +1,11 @@
 import { useGardens } from '@/features/gardens/hooks/useGardens';
+import ButtonInline from '@/shared/components/Buttons/ButtonInline';
 import ButtonLink from '@/shared/components/Buttons/ButtonLink';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
-import { FlatList, Text } from 'react-native';
+import SmallCapsText from '@/shared/components/SmallCapsText';
+import { Link } from 'expo-router';
+import { FlatList, Text, View } from 'react-native';
 import GardenListItem from './components/GardenListItem';
 
 export default function GardensScreen() {
@@ -12,7 +15,19 @@ export default function GardensScreen() {
 
   return (
     <ScreenContainer>
-      <ScreenHeading title="Your Gardens"/>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24}}>
+                
+        <ScreenHeading title="Your Gardens"  paddingBottom={0}/>
+        <ButtonInline>
+          <Link
+            href={{
+              pathname: '/gardens/new',
+            }}
+            asChild>
+            <SmallCapsText>add garden</SmallCapsText>
+          </Link>
+        </ButtonInline>
+      </View>
 
       { gardens.length === 0 ?
         <>

@@ -35,7 +35,7 @@ function PlantListItem({ plant }: { plant: { id: string; name: string; color: st
     >
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1, gap: 0, paddingLeft: 36 }}>
         <View>
-          <Text style={{fontSize: 13.5}}>{plant.name}</Text>
+          <Text style={{fontSize: 14, paddingTop: 4}}>{plant.name}</Text>
           <Text style={{fontFamily: fonts.heading, fontSize: 12, color: colors.pencil}}>{plant.scientificName}</Text>
         </View>
         
