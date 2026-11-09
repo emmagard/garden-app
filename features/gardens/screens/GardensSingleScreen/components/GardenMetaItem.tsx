@@ -7,8 +7,8 @@ function GardenMetaItem({ label, value }: { label: string; value: string }) {
   // ignored on a Text nested inside another Text.
   return (
     <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-      <SmallCapsText size={12} style={{ marginRight: 5 }}>{label}</SmallCapsText>
-      <Text style={{ fontSize: 12, color: colors.ink }}>{value}</Text>
+      <SmallCapsText size={14} style={{ marginRight: 5, fontWeight: '600' }}>{label}</SmallCapsText>
+      <Text style={{ fontSize: 14, color: colors.ink }}>{value}</Text>
     </View>
   );
 }

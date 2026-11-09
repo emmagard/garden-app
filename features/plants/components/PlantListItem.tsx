@@ -1,5 +1,6 @@
 import ColorDot from '@/shared/components/ColorDot';
 import SmallCapsText from '@/shared/components/SmallCapsText';
+import { ruleRowHeight } from '@/shared/constants/theme';
 import { colors } from '@/shared/styles/colors';
 import { fonts } from '@/shared/styles/fonts';
 import { useRouter } from 'expo-router';
@@ -21,6 +22,7 @@ function PlantListItem({ plant }: { plant: { id: string; name: string; color: st
       accessibilityRole="button"
       accessibilityLabel={`View ${plant.name}`}
       style={({ pressed }) => ({
+        height: ruleRowHeight,
         backgroundColor: colors.paper,
         borderBottomWidth: 1,
         borderColor: colors.black35,

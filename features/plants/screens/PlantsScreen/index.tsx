@@ -2,12 +2,14 @@ import PlantListItem from '@/features/plants/components/PlantListItem';
 import { usePlants } from '@/features/plants/hooks/usePlants';
 import ButtonInline from '@/shared/components/Buttons/ButtonInline';
 import ButtonLink from '@/shared/components/Buttons/ButtonLink';
+import RuledList from '@/shared/components/RuledList';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import SmallCapsText from '@/shared/components/SmallCapsText';
 import { colors } from '@/shared/styles/colors';
 import { Link } from 'expo-router';
 import { FlatList, Text, View } from 'react-native';
+
 
 export default function PlantsScreen() {
   const plants = usePlants();
@@ -38,11 +40,7 @@ export default function PlantsScreen() {
             </ButtonLink>
           </>
         :
-          <View style={{
-            marginBottom: 30,
-            borderTopWidth: 1,
-            borderColor: colors.black35
-          }}>
+          <RuledList>
             <FlatList
               data={plants}
               keyExtractor={(item) => item.id}
@@ -52,16 +50,7 @@ export default function PlantsScreen() {
                   key={item.id}/>
               )}
             />
-            <View style={{
-              position: 'absolute',
-              top: -4,
-              bottom: -4,
-              left: 32,
-              width: 1,
-              backgroundColor: colors.fadedRed,
-              pointerEvents: 'none',
-            }} />
-          </View>
+          </RuledList>
         }
       </View>
     </ScreenContainer>
