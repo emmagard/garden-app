@@ -1,4 +1,5 @@
 import ScreenHeading from '@/shared/components/ScreenHeading';
+import { ruleRowHeight } from '@/shared/constants/theme';
 import { colors } from '@/shared/styles/colors';
 import { useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
@@ -19,16 +20,17 @@ function GardenListItem({ gardenName, gardenId }: { gardenName: string; gardenId
       accessibilityRole="button"
       accessibilityLabel={`View ${gardenName}`}
       style={({ pressed }) => ({
-        marginTop: 12,
-        backgroundColor: colors.white,
-        borderRadius: 5,
-        paddingVertical: 16,
-        paddingHorizontal: 16,
+        height: ruleRowHeight,
+        backgroundColor: colors.paper,
+        borderBottomWidth: 1,
+        borderColor: colors.black35,
+        paddingLeft: 36,
+        paddingTop: 2,
+        paddingBottom: 10,
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        alignItems: 'center',
-        alignContent: 'center',
+        alignItems: 'flex-end',
         opacity: pressed ? 0.7 : 1
       })}
     >

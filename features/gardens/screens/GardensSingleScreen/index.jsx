@@ -1,21 +1,37 @@
 import GardenPlantList from '@/features/gardens/components/GardenPlantList';
 import { useGarden } from '@/features/gardens/hooks/useGardens';
 import { usePlantsByIds } from '@/features/plants/hooks/usePlants';
-import ButtonInline from '@/shared/components/Buttons/ButtonInline';
+import ActionBar from '@/shared/components/ActionBar';
+import ActionButton from '@/shared/components/ActionBar/ActionButton';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import SmallCapsText from '@/shared/components/SmallCapsText';
 import { colors } from '@/shared/styles/colors';
 import { fonts } from '@/shared/styles/fonts';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { FlatList, Text, View, useWindowDimensions } from 'react-native';
 import GardenMetaItem from './components/GardenMetaItem';
 
 export default function GardensSingleScreen() {
   const {id} = useLocalSearchParams();
   const garden = useGarden(id);
+  const router = useRouter();
   // Hooks must run before the early return below.
   const plants = usePlantsByIds(garden?.plantIds ?? []);
+  // Dynamically fetches current viewport width (handles screen rotations or splits)
+  const { width: windowWidth } = useWindowDimensions();
+
+  const handleBack = () => {
+    router.back();
+  };
+
+  const handleEdit = () => {
+    if (!garden?.id) return;
+    router.push({
+      pathname: '/gardens/edit',
+      params: { id: garden.id },
+    });
+  };
 
   if (!garden) {
     return (
@@ -25,35 +41,18 @@ export default function GardensSingleScreen() {
     );
   }
 
-  // Dynamically fetches current viewport width (handles screen rotations or splits)
-  const { width: windowWidth } = useWindowDimensions();
-
   return (
     <ScreenContainer scroll>
       <View style={{marginBottom: 0, backgroundColor: colors.paper, padding: 0}}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 24}}>
-          <ButtonInline>
-            <Link  href='/gardens' dismissTo asChild>
-              <SmallCapsText>back</SmallCapsText>
-            </Link>
-          </ButtonInline>
-
-          <ButtonInline>
-            <Link
-              href={{
-                pathname: '/gardens/edit',
-                params: {id: garden.id }
-              }}
-              asChild>
-              <SmallCapsText>edit</SmallCapsText>
-            </Link>
-          </ButtonInline>
-        </View>
+        <ActionBar>
+          <ActionButton label="back" onPress={handleBack} />
+          <ActionButton label="edit" onPress={handleEdit} />
+        </ActionBar>
+        
         <View style={{borderBottomWidth: 1, borderBottomColor: colors.black35}}>
           <ScreenHeading title={garden.name} paddingBottom={6}/>
         </View>
-     
-
+    
         <View style={{
           height: 58,
           flexDirection: 'row',
@@ -65,7 +64,7 @@ export default function GardensSingleScreen() {
         }}>
           <GardenMetaItem label="light" value={garden.light} />
           <GardenMetaItem label="soil" value={garden.soil} />
-          <GardenMetaItem label="plot" value={`${garden.width} x ${garden.length}`} />
+          <GardenMetaItem label="plot" value={`${garden.dimensions}`} />
         </View>
 
         {garden.notes.length > 0 && (

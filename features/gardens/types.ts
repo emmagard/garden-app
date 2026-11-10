@@ -1,8 +1,7 @@
 export type Garden = {
   id: string;
   name: string;
-  width: number,
-  length: number,
+  dimensions: string;
   light: string,
   soil: string,
   plantIds: string[]

@@ -1,6 +1,8 @@
 import PlantForm, { emptyPlantFormValues } from '@/features/plants/components/PlantForm';
 import { usePlant } from '@/features/plants/hooks/usePlants';
-import FormTopBar from '@/shared/components/FormTopBar';
+import ActionBar from '@/shared/components/ActionBar';
+import ActionBarTitle from '@/shared/components/ActionBar/ActionBarTitle';
+import ActionButton from '@/shared/components/ActionBar/ActionButton';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -22,7 +24,7 @@ export default function PlantsEditScreen() {
     }
   };
 
-  const handleSavePlant = () => {
+  const handleSave = () => {
     if (plantValues.name.trim()) {
       // Handle form submission
       console.log(plantValues);
@@ -39,11 +41,11 @@ export default function PlantsEditScreen() {
 
   return (
     <ScreenContainer scroll>
-      <FormTopBar
-        title="edit plant record"
-        onCancel={handleCancel}
-        onSave={handleSavePlant}
-        saveDisabled={!plantValues.name.trim()} />
+      <ActionBar>
+        <ActionButton label="cancel" onPress={handleCancel} />
+        <ActionBarTitle title="edit record" />
+        <ActionButton label="save" onPress={handleSave} />
+      </ActionBar>
 
       <PlantForm values={plantValues} onChange={setPlantValues} />
     </ScreenContainer>

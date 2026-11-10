@@ -14,12 +14,13 @@ function GardenPlantList({ plants }: GardenPlantListProps) {
   return (
     <View style={{
       backgroundColor: colors.paper,
-      paddingVertical: 2,
-      marginTop: 0,
+      paddingTop: 12,
+      paddingBottom: 2,
+      marginTop:0,
       borderTopWidth: 1,
       borderColor: colors.black35
     }}>
-      <ScreenHeading title='Plants' level={2} paddingBottom={24} />
+      <ScreenHeading title='Plants' level={2} paddingBottom={10} />
 
       <RuledList>
         {plants.length === 0 ?

@@ -23,7 +23,7 @@ export default function Input({ label, labelPlacement = 'above',  ...rest }: Inp
   const containerStyle = {
     flexDirection: labelPlacement == 'above' ? 'column' : 'row',
     alignItems: labelPlacement == 'above' ? 'stretch' : 'baseline',
-    flex: 0,
+    flex: 1,
   } as const;
   
   return (

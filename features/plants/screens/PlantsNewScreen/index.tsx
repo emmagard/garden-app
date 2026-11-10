@@ -1,5 +1,7 @@
 import PlantForm, { emptyPlantFormValues } from '@/features/plants/components/PlantForm';
-import FormTopBar from '@/shared/components/FormTopBar';
+import ActionBar from '@/shared/components/ActionBar';
+import ActionBarTitle from '@/shared/components/ActionBar/ActionBarTitle';
+import ActionButton from '@/shared/components/ActionBar/ActionButton';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -18,7 +20,7 @@ export default function PlantsNewScreen() {
     }
   };
 
-  const handleAddPlant = () => {
+  const handleSave = () => {
     if (plantValues.name.trim()) {
       // Handle form submission
       console.log(plantValues);
@@ -31,12 +33,12 @@ export default function PlantsNewScreen() {
 
   return (
     <ScreenContainer scroll>
-      <FormTopBar
-        title="new plant record"
-        onCancel={handleCancel}
-        onSave={handleAddPlant}
-        saveDisabled={!plantValues.name.trim()} />
-
+      <ActionBar>
+        <ActionButton label="cancel" onPress={handleCancel} />
+        <ActionBarTitle title="new plant record" />
+        <ActionButton label="save" onPress={handleSave} />
+      </ActionBar>
+    
       <PlantForm values={plantValues} onChange={setPlantValues} />
     </ScreenContainer>
   );

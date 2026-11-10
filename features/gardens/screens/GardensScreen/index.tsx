@@ -1,6 +1,7 @@
 import { useGardens } from '@/features/gardens/hooks/useGardens';
 import ButtonInline from '@/shared/components/Buttons/ButtonInline';
 import ButtonLink from '@/shared/components/Buttons/ButtonLink';
+import RuledList from '@/shared/components/RuledList';
 import ScreenContainer from '@/shared/components/ScreenContainer';
 import ScreenHeading from '@/shared/components/ScreenHeading';
 import SmallCapsText from '@/shared/components/SmallCapsText';
@@ -17,7 +18,7 @@ export default function GardensScreen() {
     <ScreenContainer>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24}}>
                 
-        <ScreenHeading title="Your Gardens"  paddingBottom={0}/>
+        <ScreenHeading title="Gardens"  paddingBottom={0}/>
         <ButtonInline>
           <Link
             href={{
@@ -37,11 +38,15 @@ export default function GardensScreen() {
           </ButtonLink>
         </>
       :
+      <RuledList>
         <FlatList
           data={gardens}
-          renderItem={ ({item}) => <GardenListItem gardenName={item.name} gardenId={item.id} />}
           keyExtractor={item => item.id}
-        />       
+          renderItem={ ({item}) => (
+            <GardenListItem gardenName={item.name} gardenId={item.id} />
+          )}
+        />
+        </RuledList>      
       }
     </ScreenContainer>
   );
